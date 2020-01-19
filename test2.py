@@ -85,71 +85,71 @@ def check_result(s):
 
 
 def check_2_of_3 (autobot, person):
-    f = 0
+#    f = 0
     global choosewin
     global bigline
     global all_lines
     for nl in all_lines:
-        f=f+1
-        print(f) # так удобней отслеживать цикл
-        print('проверяем сначала нет ли победных вариантов для робота')
+#        f=f+1
+#        print(f) # так удобней отслеживать цикл
+#        print('проверяем сначала нет ли победных вариантов для робота')
         if (bigline[nl[0]] == autobot and bigline[nl[1]] == autobot and bigline[nl[2]] == " ") or \
             (bigline[nl[0]] == autobot and bigline[nl[2]] == autobot and bigline[nl[1]] == " ") or \
             (bigline[nl[2]] == autobot and bigline[nl[1]] == autobot and bigline[nl[0]] == " "):
 
-            print ('УРА есть ЛИНИЯ, но какая клетка?')
-            print('проверяем если 1 и 2 равны, а 3 пустое')
+#            print ('УРА есть ЛИНИЯ, но какая клетка?')
+#            print('проверяем если 1 и 2 равны, а 3 пустое')
             if (bigline[nl[0]] == autobot and bigline[nl[1]] == autobot and bigline[nl[2]] == " "):
                 choosewin = nl[2]
                 choosewin = int(choosewin)
-                print('оказалось действительно 1 и 2 равны, а 3 ое пустое, можно сходить в клетку', choosewin, 'для победы компа естественно')
+#                print('оказалось действительно 1 и 2 равны, а 3 ое пустое, можно сходить в клетку', choosewin, 'для победы компа естественно')
                 break
 
-            print('проверяем если 1 и 3 равны, а 2 пустое')
+#            print('проверяем если 1 и 3 равны, а 2 пустое')
             if (bigline[nl[0]] == autobot and bigline[nl[2]] == autobot and bigline[nl[1]] == " "):
                 choosewin = nl[1]
                 choosewin = int(choosewin)
-                print('оказалось действительно 1 и 3 равны, а 2 ое пустое, можно сходить в клетку', choosewin, 'для победы компа естественно')
+#                print('оказалось действительно 1 и 3 равны, а 2 ое пустое, можно сходить в клетку', choosewin, 'для победы компа естественно')
                 break
 
-            print('проверяем если 2 и 3 равны, а 1 пустое')
+#            print('проверяем если 2 и 3 равны, а 1 пустое')
             if (bigline[nl[2]] == autobot and bigline[nl[1]] == autobot and bigline[nl[0]] == " "):
                 choosewin = nl[0]
                 choosewin = int(choosewin)
-                print('оказалось действительно 2 и 3 равны, а 1 ое пустое, можно сходить в клетку', choosewin, 'для победы компа естественно')
+#                print('оказалось действительно 2 и 3 равны, а 1 ое пустое, можно сходить в клетку', choosewin, 'для победы компа естественно')
                 break
 
-        print('видимо победных линий неть, надо проверить нет ли победных линий для человека, и не дать ему победить')
+#        print('видимо победных линий неть, надо проверить нет ли победных линий для человека, и не дать ему победить')
         if (bigline[nl[0]] == person and bigline[nl[1]] == person and bigline[nl[2]] == " ") or \
         (bigline[nl[0]] == person and bigline[nl[2]] == person and bigline[nl[1]] == " ") or \
         (bigline[nl[2]] == person and bigline[nl[1]] == person and bigline[nl[0]] == " "):
-            print ('ОПАСНОСТЬ! ЧЕЛОВЕК МОЖЕТ ПОБЕДИТЬ! Надо выяснить какая линия и какая клетка несёт потенциальную опасность')
+#            print ('ОПАСНОСТЬ! ЧЕЛОВЕК МОЖЕТ ПОБЕДИТЬ! Надо выяснить какая линия и какая клетка несёт потенциальную опасность')
 
-            print('проверяем если 1 и 2 равны, а 3 пустое')
+#            print('проверяем если 1 и 2 равны, а 3 пустое')
             if (bigline[nl[0]] == person and bigline[nl[1]] == person and bigline[nl[2]] == " "):
                 choosewin = nl[2]
                 choosewin = int(choosewin)
-                print('оказалось действительно 1 и 2 равны, а 3 ое пустое, можно сходить в клетку', choosewin,
-                      'для того, чтобы человек не выйграл')
+#                print('оказалось действительно 1 и 2 равны, а 3 ое пустое, можно сходить в клетку', choosewin,
+#                      'для того, чтобы человек не выйграл')
                 break
 
-            print('проверяем если 1 и 3 равны, а 2 пустое')
+#            print('проверяем если 1 и 3 равны, а 2 пустое')
             if (bigline[nl[0]] == person and bigline[nl[2]] == person and bigline[nl[1]] == " "):
                 choosewin = nl[1]
                 choosewin = int(choosewin)
-                print('оказалось действительно 1 и 3 равны, а 2 ое пустое, можно сходить в клетку', choosewin,
-                      'для того, чтобы человек не выйграл')
+#                print('оказалось действительно 1 и 3 равны, а 2 ое пустое, можно сходить в клетку', choosewin,
+#                      'для того, чтобы человек не выйграл')
                 break
 
-            print('проверяем если 2 и 3 равны, а 1 пустое')
+#            print('проверяем если 2 и 3 равны, а 1 пустое')
             if (bigline[nl[2]] == person and bigline[nl[1]] == person and bigline[nl[0]] == " "):
                 choosewin = nl[0]
                 choosewin = int(choosewin)
-                print('оказалось действительно 2 и 3 равны, а 1 ое пустое, можно сходить в клетку', choosewin,
-                      'для того, чтобы человек не выйграл')
+#                print('оказалось действительно 2 и 3 равны, а 1 ое пустое, можно сходить в клетку', choosewin,
+#                      'для того, чтобы человек не выйграл')
                 break
         else:
-            print('линий для победы робота или человека нет, можно ходить куда угодно')
+#            print('линий для победы робота или человека нет, можно ходить куда угодно')
             choosewin = None
 
     print(choosewin)
@@ -162,7 +162,7 @@ def get_pos_auto(person,symbol):
     while cell_is_occupied:
         choosewin = random.randint(1, 9)
         if bigline[choosewin] != " ":
-            print(' Данная ячейка занята!')
+#            print(' Данная ячейка занята!')
         else:
             cell_is_occupied = False
             break
@@ -185,7 +185,7 @@ while going:
     printbigline()
 
     hw = check_2_of_3("O","X")
-    print(choosewin)
+#    print(choosewin)
     if hw is not None: # это не работает!
         bigline[choosewin] = "O"
     if hw is None:
@@ -196,12 +196,4 @@ while going:
     check_result("X")
     check_result("O")
 
-# Бро: Короче подсказка, если у тебя есть функция для проверки 2 из 3, то пользоваться ей надо так:
-#    hw = human_2_of_3("X")
-#    if hw is not None:
-#        bigline[choosewin] = "O"
-#    else:
-#        bigline[get_pos_auto('Второй', 'O')] = "O"
-# Бро: Это код вместо твоего цикла по строкам
-# Бро: А цикл по строкам внутри функции human_2_of_3
-# Бро: она возвращает номер ячейки куда ходить или None - если опасности нет
+
