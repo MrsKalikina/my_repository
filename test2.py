@@ -93,9 +93,9 @@ def winner_check():
     global all_lines
     x = 0 #  та самая ошибка
     for i in range(8):
-#        print('сейчас мы смотрим строку', i)
+        print('сейчас мы смотрим строку', i)
         get_cells_info(i, "O", "X")
-#        print(enemy_cells, '-это вражеские ячейки', our_cells, '- это наши ячейки', empty_cells, '-пустые ячейки')
+        print(enemy_cells, '-это вражеские ячейки', our_cells, '- это наши ячейки', empty_cells, '-пустые ячейки')
         if len(our_cells) == 3:
             print('ура, вновь роботы одержали вверх над человечеством')
             quit()
@@ -116,36 +116,34 @@ def winner_check():
 def sear_number_for_step():
     global all_lines
     global number_for_win
-
     for i in range(8):
         print('сейчас мы смотрим строку', i)
         get_cells_info(i, "O", "X")
         print(enemy_cells, '-это вражеские ячейки', our_cells, '- это наши ячейки', empty_cells,
                       '-пустые ячейки')
-
+        print(len(enemy_cells),len(our_cells), len(empty_cells) )
         if len(our_cells) == 2 and len(empty_cells) == 1:
+            print(empty_cells[0])
             print('круто, у нас есть шанс победить человечество, достаточно всего лишь поставить свой знак в', empty_cells[0])
             number_for_win = int(empty_cells[0])
             print(number_for_win)
-            break
 
-        if len(empty_cells) == 1 and len(enemy_cells) == 2:
+        if len(enemy_cells) == 2 and len(empty_cells) == 1:
+            print (empty_cells[0])
             print('алярм, человек шибко умён и уже поставил в одну строку два своих символа')
             print('надо ставить свой роботовский значёк ', empty_cells[0])
             number_for_win = int(empty_cells[0])
             print(number_for_win)
-            break
 
         if len(our_cells) == 1 and len(empty_cells) == 2:
             print('такс, линии для победы нет, опасных линий тоже нет, но есть линия где у меня есть возможность '
                   'создать себе победную комбинаци.',empty_cells[0])
             number_for_win = int(random.choice(empty_cells))
             print(number_for_win)
-            break
+
         if len(empty_cells) == 3:
             number_for_win = int(random.choice(empty_cells))
             print(number_for_win)
-            break
 
     return number_for_win
     print(number_for_win)
