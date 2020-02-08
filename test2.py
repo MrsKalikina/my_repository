@@ -68,10 +68,6 @@ def get_pos(person,symbol):
 
 def get_cells_info(line_number, our_sign, enemy_sign):
     global all_lines
-    global enemy_cells
-    global empty_cells
-    global our_cells
-
     nl = all_lines[line_number]
     print(nl)
     empty_cells = []
@@ -90,11 +86,10 @@ def get_cells_info(line_number, our_sign, enemy_sign):
 
 
 def winner_check():
-    global all_lines
     x = 0 #  та самая ошибка
     for i in range(8):
         print('сейчас мы смотрим строку', i)
-        get_cells_info(i, "O", "X")
+        enemy_cells, our_cells, empty_cells = get_cells_info(i, "O", "X")
         print(enemy_cells, '-это вражеские ячейки', our_cells, '- это наши ячейки', empty_cells, '-пустые ячейки')
         if len(our_cells) == 3:
             print('ура, вновь роботы одержали вверх над человечеством')
@@ -114,39 +109,63 @@ def winner_check():
 
 
 def sear_number_for_step():
-    global all_lines
     global number_for_win
+    number_for_win = None
     for i in range(8):
         print('сейчас мы смотрим строку', i)
-        get_cells_info(i, "O", "X")
+        enemy_cells, our_cells, empty_cells = get_cells_info(i, "O", "X")
         print(enemy_cells, '-это вражеские ячейки', our_cells, '- это наши ячейки', empty_cells,
-                      '-пустые ячейки')
-        print(len(enemy_cells),len(our_cells), len(empty_cells) )
+              '-пустые ячейки')
+        print(len(enemy_cells), len(our_cells), len(empty_cells))
         if len(our_cells) == 2 and len(empty_cells) == 1:
             print(empty_cells[0])
-            print('круто, у нас есть шанс победить человечество, достаточно всего лишь поставить свой знак в', empty_cells[0])
+            print('круто, у нас есть шанс победить человечество, достаточно всего лишь поставить свой знак в',
+                  empty_cells[0])
             number_for_win = int(empty_cells[0])
             print(number_for_win)
 
-        if len(enemy_cells) == 2 and len(empty_cells) == 1:
-            print (empty_cells[0])
-            print('алярм, человек шибко умён и уже поставил в одну строку два своих символа')
-            print('надо ставить свой роботовский значёк ', empty_cells[0])
-            number_for_win = int(empty_cells[0])
-            print(number_for_win)
+    if number_for_win == None:
 
-        if len(our_cells) == 1 and len(empty_cells) == 2:
-            print('такс, линии для победы нет, опасных линий тоже нет, но есть линия где у меня есть возможность '
-                  'создать себе победную комбинаци.',empty_cells[0])
-            number_for_win = int(random.choice(empty_cells))
-            print(number_for_win)
+        for i in range(8):
+            print('сейчас мы смотрим строку', i)
+            enemy_cells, our_cells, empty_cells = get_cells_info(i, "O", "X")
+            print(enemy_cells, '-это вражеские ячейки', our_cells, '- это наши ячейки', empty_cells,
+                  '-пустые ячейки')
+            if len(enemy_cells) == 2 and len(empty_cells) == 1:
+                print (empty_cells[0])
+                print('алярм, человек шибко умён и уже поставил в одну строку два своих символа')
+                print('надо ставить свой роботовский значёк ', empty_cells[0])
+                number_for_win = int(empty_cells[0])
+                print(number_for_win)
 
-        if len(empty_cells) == 3:
-            number_for_win = int(random.choice(empty_cells))
-            print(number_for_win)
+    if number_for_win == None:
+        for i in range(8):
+            print('сейчас мы смотрим строку', i)
+            enemy_cells, our_cells, empty_cells = get_cells_info(i, "O", "X")
+            print(enemy_cells, '-это вражеские ячейки', our_cells, '- это наши ячейки', empty_cells,
+                  '-пустые ячейки')
+            if len(our_cells) == 1 and len(empty_cells) == 2:
+                print('такс, линии для победы нет, опасных линий тоже нет, но есть линия где у меня есть возможность '
+                      'создать себе победную комбинаци.',empty_cells[0])
+                number_for_win = int(random.choice(empty_cells))
+                print(number_for_win)
 
-    return number_for_win
+    if number_for_win == None:
+
+        for i in range(8):
+            print('сейчас мы смотрим строку', i)
+            enemy_cells, our_cells, empty_cells = get_cells_info(i, "O", "X")
+            print(enemy_cells, '-это вражеские ячейки', our_cells, '- это наши ячейки', empty_cells,
+                  '-пустые ячейки')
+            if len(empty_cells) == 3:
+                number_for_win = int(random.choice(empty_cells))
+                print(number_for_win)
+                break
+
     print(number_for_win)
+    return number_for_win
+
+
 
 
 
