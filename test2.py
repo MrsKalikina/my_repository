@@ -160,7 +160,7 @@ def sear_number_for_step():
             if len(empty_cells) == 3:
                 number_for_win = int(random.choice(empty_cells))
                 print(number_for_win)
-                break
+
 
     print(number_for_win)
     return number_for_win
