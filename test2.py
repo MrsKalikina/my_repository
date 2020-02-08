@@ -60,117 +60,104 @@ def get_pos(person,symbol):
             break
     return choosewin
 
-# цикл для проверки победителя
+# функция для упрощения всех проверок и победиля и нужной клетки для робота. здесь мы собираем списки
+# с данными - в каких клетках уже стоит знак нолика или крестика, а какие клетки пустые.
 
-def check_result(s):
-    if (bigline[1] == bigline[2] == bigline[3] == s) or \
-            (bigline[1] == bigline[5] == bigline[9] == s) or \
-            (bigline[1] == bigline[4] == bigline[7] == s) or \
-            (bigline[2] == bigline[5] == bigline[8] == s) or \
-            (bigline[3] == bigline[6] == bigline[9] == s) or \
-            (bigline[4] == bigline[5] == bigline[6] == s) or \
-            (bigline[7] == bigline[8] == bigline[9] == s) or \
-            (bigline[3] == bigline[5] == bigline[7] == s):
-            printbigline()
-            print('Поздравляем игрока игравшего {} ! Победа ! Ура Ура Ура!'.format(s))
-            quit()
-    elif bigline[1] != " " and bigline[1] != " " and bigline[2] != " " and bigline[3] != " " and \
-        bigline[4] != " " and bigline[5] != " " and bigline[6] != " " and bigline[7] != " " and \
-        bigline[8] != " " and bigline[9] != " ":
-            printbigline()
-            print('Ничья!')
-            quit()
-    else:
-        print('пока никто не победил, поехали дальше ')
+#bigline[9] = "X"
+#bigline[7] = "O"
 
-
-def check_2_of_3 (autobot, person):
-#    f = 0
-    global choosewin
-    global bigline
+def get_cells_info(line_number, our_sign, enemy_sign):
     global all_lines
-    for nl in all_lines:
-#        f=f+1
-#        print(f) # так удобней отслеживать цикл
-#        print('проверяем сначала нет ли победных вариантов для робота')
-        if (bigline[nl[0]] == autobot and bigline[nl[1]] == autobot and bigline[nl[2]] == " ") or \
-            (bigline[nl[0]] == autobot and bigline[nl[2]] == autobot and bigline[nl[1]] == " ") or \
-            (bigline[nl[2]] == autobot and bigline[nl[1]] == autobot and bigline[nl[0]] == " "):
+    global enemy_cells
+    global empty_cells
+    global our_cells
 
-#            print ('УРА есть ЛИНИЯ, но какая клетка?')
-#            print('проверяем если 1 и 2 равны, а 3 пустое')
-            if (bigline[nl[0]] == autobot and bigline[nl[1]] == autobot and bigline[nl[2]] == " "):
-                choosewin = nl[2]
-                choosewin = int(choosewin)
-#                print('оказалось действительно 1 и 2 равны, а 3 ое пустое, можно сходить в клетку', choosewin, 'для победы компа естественно')
-                break
+    nl = all_lines[line_number]
+    print(nl)
+    empty_cells = []
+    our_cells = []
+    enemy_cells = []
+    for pos in range(3):
+        if bigline[nl[pos]] == " ":
+            empty_cells.append(nl[pos])
+        if bigline[nl[pos]] == our_sign:
+            our_cells.append(nl[pos])
+        if bigline[nl[pos]] == enemy_sign:
+            enemy_cells.append(nl[pos])
+    print (enemy_cells, our_cells, empty_cells)
+    return enemy_cells, our_cells, empty_cells
 
-#            print('проверяем если 1 и 3 равны, а 2 пустое')
-            if (bigline[nl[0]] == autobot and bigline[nl[2]] == autobot and bigline[nl[1]] == " "):
-                choosewin = nl[1]
-                choosewin = int(choosewin)
-#                print('оказалось действительно 1 и 3 равны, а 2 ое пустое, можно сходить в клетку', choosewin, 'для победы компа естественно')
-                break
+# этот цикл проверяет каждое значение выигрышных строк.
+# каждый раз проходя по строке он проверяет есть ли потенциальное пустое место, вражеский знак и наш знак
 
-#            print('проверяем если 2 и 3 равны, а 1 пустое')
-            if (bigline[nl[2]] == autobot and bigline[nl[1]] == autobot and bigline[nl[0]] == " "):
-                choosewin = nl[0]
-                choosewin = int(choosewin)
-#                print('оказалось действительно 2 и 3 равны, а 1 ое пустое, можно сходить в клетку', choosewin, 'для победы компа естественно')
-                break
+# благодаря этому циклу мы можем определить место куда ходить.
+# таким образом нам нужен 1) цикл, который сначала ищет выйгрышные или проигрышные места и возвращает номер ячейки, куда ходить роботу
+                        # 2) который проверяет победил ли кто-то - робот или человек или ничья
+                        # 3)
+                        # 4)
 
-#        print('видимо победных линий неть, надо проверить нет ли победных линий для человека, и не дать ему победить')
-        if (bigline[nl[0]] == person and bigline[nl[1]] == person and bigline[nl[2]] == " ") or \
-        (bigline[nl[0]] == person and bigline[nl[2]] == person and bigline[nl[1]] == " ") or \
-        (bigline[nl[2]] == person and bigline[nl[1]] == person and bigline[nl[0]] == " "):
-#            print ('ОПАСНОСТЬ! ЧЕЛОВЕК МОЖЕТ ПОБЕДИТЬ! Надо выяснить какая линия и какая клетка несёт потенциальную опасность')
 
-#            print('проверяем если 1 и 2 равны, а 3 пустое')
-            if (bigline[nl[0]] == person and bigline[nl[1]] == person and bigline[nl[2]] == " "):
-                choosewin = nl[2]
-                choosewin = int(choosewin)
-#                print('оказалось действительно 1 и 2 равны, а 3 ое пустое, можно сходить в клетку', choosewin,
-#                      'для того, чтобы человек не выйграл')
-                break
+# цикл для вычисления комбинаций, возможно лучше сделать его while, но пока проверяем в таком формате.
+# в данном случае будет ретёрнить
 
-#            print('проверяем если 1 и 3 равны, а 2 пустое')
-            if (bigline[nl[0]] == person and bigline[nl[2]] == person and bigline[nl[1]] == " "):
-                choosewin = nl[1]
-                choosewin = int(choosewin)
-#                print('оказалось действительно 1 и 3 равны, а 2 ое пустое, можно сходить в клетку', choosewin,
-#                      'для того, чтобы человек не выйграл')
-                break
-
-#            print('проверяем если 2 и 3 равны, а 1 пустое')
-            if (bigline[nl[2]] == person and bigline[nl[1]] == person and bigline[nl[0]] == " "):
-                choosewin = nl[0]
-                choosewin = int(choosewin)
-#                print('оказалось действительно 2 и 3 равны, а 1 ое пустое, можно сходить в клетку', choosewin,
-#                      'для того, чтобы человек не выйграл')
-                break
+def winner_check():
+    global all_lines
+    for i in range(8):
+        print('сейчас мы смотрим строку', i)
+        get_cells_info(i, "O", "X")
+        print(enemy_cells, '-это вражеские ячейки', our_cells, '- это наши ячейки', empty_cells, '-пустые ячейки')
+        if len(our_cells) == 3:
+            print('ура, вновь роботы оедржали вверх над человечеством')
+            quit()
+        if len(enemy_cells) == 3:
+            print('Ураааа вновь человечество победило над роботами')
+            quit()
+        if len(empty_cells) == 0:
+            x=x+1
+            if x == 8:
+                print ('НИЧЬЯ! Сегодня силы распределились в равной степени. Никто не сможет смеяться последним')
+                quit()
+            else:
+                continue
         else:
-#            print('линий для победы робота или человека нет, можно ходить куда угодно')
-            choosewin = None
+            print('видимо тут нет победных строк - будем играть дальше')
 
-    print(choosewin)
-    return choosewin
 
-def get_pos_auto(person,symbol):
-    global bigline
-    global choosewin
-    cell_is_occupied = True
-    while cell_is_occupied:
-        choosewin = random.randint(1, 9)
-        if bigline[choosewin] != " ":
-#            print(' Данная ячейка занята!')
-        else:
-            cell_is_occupied = False
+def sear_number_for_step():
+    global all_lines
+    global number_for_win
+
+    for i in range(8):
+        print('сейчас мы смотрим строку', i)
+        get_cells_info(i, "O", "X")
+        print(enemy_cells, '-это вражеские ячейки', our_cells, '- это наши ячейки', empty_cells,
+                      '-пустые ячейки')
+        if len(empty_cells) == 1 and len(enemy_cells) == 2:
+            print('алярм, человек шибко умён и уже поставил в одну строку два своих символа')
+            print('надо ставить свой роботовский значёк ', empty_cells[0])
+            number_for_win = int(empty_cells[0])
             break
-    return choosewin
+        if len(our_cells) == 2 and len(empty_cells) == 1:
+            print('круто, у нас есть шанс победить человечество, достаточно всего лишь поставить свой знак в', empty_cells[0])
+            number_for_win = int(empty_cells[0])
+            break
+        if len(our_cells) == 1 and len(empty_cells) == 2:
+            print('такс, линии для победы нет, опасных линий тоже нет, но есть линия где у меня есть возможность '
+                  'создать себе победную комбинаци.',
+              empty_cells[0])
+            number_for_win = int(random.choice(empty_cells))
+            break
+        if len(empty_cells) == 3:
+            number_for_win = int(random.choice(empty_cells))
+            break
+
+    return number_for_win
 
 
 
-#Здесь уже должен был цикл для игры, в котором цикл для проверки ходов робота.
+
+#и есть два пустых места - туда можно поставить нолик, либо в ячейку empty_cells[0] либо в empty_cells[1],
+#можно выбрать из них случайную с помощью random.choice(empty_cells)
 
 going = True
 
@@ -179,21 +166,14 @@ while going:
 
     bigline[get_pos('Первый','X')] = "X"
 
-    check_result("X")
-    check_result("O")
+    printbigline()
+
+    winner_check()
+
+    sear_number_for_step()
+
+    bigline[number_for_win] = "O"
 
     printbigline()
 
-    hw = check_2_of_3("O","X")
-#    print(choosewin)
-    if hw is not None: # это не работает!
-        bigline[choosewin] = "O"
-    if hw is None:
-        bigline[get_pos_auto('Второй','O')] = "O"
-
-    printbigline()
-
-    check_result("X")
-    check_result("O")
-
-
+    winner_check()
