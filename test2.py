@@ -87,25 +87,15 @@ def get_cells_info(line_number, our_sign, enemy_sign):
     print (enemy_cells, our_cells, empty_cells)
     return enemy_cells, our_cells, empty_cells
 
-# этот цикл проверяет каждое значение выигрышных строк.
-# каждый раз проходя по строке он проверяет есть ли потенциальное пустое место, вражеский знак и наш знак
 
-# благодаря этому циклу мы можем определить место куда ходить.
-# таким образом нам нужен 1) цикл, который сначала ищет выйгрышные или проигрышные места и возвращает номер ячейки, куда ходить роботу
-                        # 2) который проверяет победил ли кто-то - робот или человек или ничья
-                        # 3)
-                        # 4)
-
-
-# цикл для вычисления комбинаций, возможно лучше сделать его while, но пока проверяем в таком формате.
-# в данном случае будет ретёрнить
 
 def winner_check():
     global all_lines
+    x = 0 #  та самая ошибка
     for i in range(8):
-        print('сейчас мы смотрим строку', i)
+#        print('сейчас мы смотрим строку', i)
         get_cells_info(i, "O", "X")
-        print(enemy_cells, '-это вражеские ячейки', our_cells, '- это наши ячейки', empty_cells, '-пустые ячейки')
+#        print(enemy_cells, '-это вражеские ячейки', our_cells, '- это наши ячейки', empty_cells, '-пустые ячейки')
         if len(our_cells) == 3:
             print('ура, вновь роботы оедржали вверх над человечеством')
             quit()
@@ -136,44 +126,38 @@ def sear_number_for_step():
             print('алярм, человек шибко умён и уже поставил в одну строку два своих символа')
             print('надо ставить свой роботовский значёк ', empty_cells[0])
             number_for_win = int(empty_cells[0])
+            print(number_for_win)
             break
         if len(our_cells) == 2 and len(empty_cells) == 1:
             print('круто, у нас есть шанс победить человечество, достаточно всего лишь поставить свой знак в', empty_cells[0])
             number_for_win = int(empty_cells[0])
+            print(number_for_win)
             break
         if len(our_cells) == 1 and len(empty_cells) == 2:
             print('такс, линии для победы нет, опасных линий тоже нет, но есть линия где у меня есть возможность '
                   'создать себе победную комбинаци.',
               empty_cells[0])
             number_for_win = int(random.choice(empty_cells))
+            print(number_for_win)
             break
         if len(empty_cells) == 3:
             number_for_win = int(random.choice(empty_cells))
+            print(number_for_win)
             break
 
     return number_for_win
+    print(number_for_win)
 
 
-
-
-#и есть два пустых места - туда можно поставить нолик, либо в ячейку empty_cells[0] либо в empty_cells[1],
-#можно выбрать из них случайную с помощью random.choice(empty_cells)
 
 going = True
 
 while going:
     printbigline()
-
     bigline[get_pos('Первый','X')] = "X"
-
     printbigline()
-
     winner_check()
-
     sear_number_for_step()
-
     bigline[number_for_win] = "O"
-
     printbigline()
-
     winner_check()
