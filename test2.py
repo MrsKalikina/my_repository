@@ -97,7 +97,7 @@ def winner_check():
         get_cells_info(i, "O", "X")
 #        print(enemy_cells, '-это вражеские ячейки', our_cells, '- это наши ячейки', empty_cells, '-пустые ячейки')
         if len(our_cells) == 3:
-            print('ура, вновь роботы оедржали вверх над человечеством')
+            print('ура, вновь роботы одержали вверх над человечеством')
             quit()
         if len(enemy_cells) == 3:
             print('Ураааа вновь человечество победило над роботами')
@@ -122,21 +122,23 @@ def sear_number_for_step():
         get_cells_info(i, "O", "X")
         print(enemy_cells, '-это вражеские ячейки', our_cells, '- это наши ячейки', empty_cells,
                       '-пустые ячейки')
+
+        if len(our_cells) == 2 and len(empty_cells) == 1:
+            print('круто, у нас есть шанс победить человечество, достаточно всего лишь поставить свой знак в', empty_cells[0])
+            number_for_win = int(empty_cells[0])
+            print(number_for_win)
+            break
+
         if len(empty_cells) == 1 and len(enemy_cells) == 2:
             print('алярм, человек шибко умён и уже поставил в одну строку два своих символа')
             print('надо ставить свой роботовский значёк ', empty_cells[0])
             number_for_win = int(empty_cells[0])
             print(number_for_win)
             break
-        if len(our_cells) == 2 and len(empty_cells) == 1:
-            print('круто, у нас есть шанс победить человечество, достаточно всего лишь поставить свой знак в', empty_cells[0])
-            number_for_win = int(empty_cells[0])
-            print(number_for_win)
-            break
+
         if len(our_cells) == 1 and len(empty_cells) == 2:
             print('такс, линии для победы нет, опасных линий тоже нет, но есть линия где у меня есть возможность '
-                  'создать себе победную комбинаци.',
-              empty_cells[0])
+                  'создать себе победную комбинаци.',empty_cells[0])
             number_for_win = int(random.choice(empty_cells))
             print(number_for_win)
             break
